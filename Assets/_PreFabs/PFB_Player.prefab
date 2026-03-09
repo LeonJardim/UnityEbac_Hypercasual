@@ -170,6 +170,7 @@ MonoBehaviour:
   canRun: 0
   forwardSpeed: 8
   sideSpeed: 0.3
+  _playerBody: {fileID: 2803727162255116999}
 --- !u!1 &7232467399148471369
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,10 +1,12 @@
 using Leon.Core.InputActions;
+using Leon.Core.Singleton;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TouchController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
     public bool canRun = false;
+    public bool invincible = false;
     public float forwardSpeed = 2.0f;
     public float sideSpeed = 0.1f;
 
@@ -13,11 +15,13 @@ public class TouchController : MonoBehaviour
     private InputAction _tapOff;
     private InputAction _screenPos;
 
-    private Vector2 mousePos;
+    private Vector2 _mousePos;
+    private float _currentSpeed;
 
-    #region Inputs / Awake
-    private void Awake()
+    #region INPUTS / AWAKE
+    protected override void Awake()
     {
+        base.Awake();
         _playerControls = new PlayerInputActions();
     }
 
@@ -35,6 +39,10 @@ public class TouchController : MonoBehaviour
     }
     #endregion
 
+    private void Start()
+    {
+        _currentSpeed = forwardSpeed;
+    }
     void Update()
     {
         if (!canRun) return;
@@ -42,23 +50,36 @@ public class TouchController : MonoBehaviour
         ForwardMovement();
         if (_tapOn.IsPressed())
         {
-            SideMovement(_screenPos.ReadValue<Vector2>().x - mousePos.x);
-        } 
+            SideMovement(_screenPos.ReadValue<Vector2>().x - _mousePos.x);
+        }
 
-        mousePos = _screenPos.ReadValue<Vector2>();
+        _mousePos = _screenPos.ReadValue<Vector2>();
     }
     private void SideMovement(float speed)
     {
-        transform.position += Vector3.right * Time.deltaTime * speed * sideSpeed;
+        transform.Translate(sideSpeed * speed * Time.deltaTime * transform.right);
     }
 
     private void ForwardMovement()
     {
-        transform.Translate(transform.forward * forwardSpeed * Time.deltaTime);
+        transform.Translate(_currentSpeed * Time.deltaTime * transform.forward);
     }
 
-    public void Run(bool b)
+    public void CanRun(bool b)
     {
         canRun = b;
     }
+
+
+    #region POWER UPS
+    public void SpeedPowerUpOn(float amount)
+    {
+        _currentSpeed += amount;
+    }
+    public void SpeedPowerUpOff()
+    {
+        _currentSpeed = forwardSpeed;
+    }
+
+    #endregion
 }

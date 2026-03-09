@@ -1,13 +1,14 @@
 using Leon.Core.Singleton;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private TouchController _playerController;
     [SerializeField] private GameObject _endGameScreen;
+    public TMP_Text powerUpText;
     public void EndGame()
     {
         _endGameScreen.SetActive(true);
-        _playerController.canRun = false;
+        PlayerController.Instance.canRun = false;
     }
 }

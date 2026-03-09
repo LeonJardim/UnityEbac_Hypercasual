@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     {
         if (collision.transform.CompareTag("Enemy"))
         {
+            if (PlayerController.Instance.invincible) return;
             GameManager.Instance.EndGame();
         }
         else if (collision.transform.CompareTag("Finish"))

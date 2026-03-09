@@ -9,9 +9,9 @@ public class Collectable : MonoBehaviour
     public float timeToDestroy;
     private bool _collected = false;
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.CompareTag(tagToCompare))
+        if (collider.CompareTag(tagToCompare))
         {
             if (_collected) return;
             Collect();
