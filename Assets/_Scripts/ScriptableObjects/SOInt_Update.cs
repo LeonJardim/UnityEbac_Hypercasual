@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class SOInt_Update : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI uiText;
+    [SerializeField] private string extraText = "";
     public SOInt soInt;
-    public TextMeshProUGUI uiText;
 
     private void Start()
     {
@@ -23,7 +24,7 @@ public class SOInt_Update : MonoBehaviour
 
     private void UpdateText(int newValue)
     {
-        uiText.text = newValue.ToString();
+        uiText.text = extraText + newValue.ToString();
     }
 
 }

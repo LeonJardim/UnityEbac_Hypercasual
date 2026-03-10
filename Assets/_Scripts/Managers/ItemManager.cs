@@ -5,14 +5,13 @@ using UnityEngine;
 public class ItemManager : Singleton<ItemManager>
 {
     public SOInt coins;
-    [SerializeField] private TMP_Text coinTextHUD;
 
     private void Start()
     {
-        Reset();
+        ResetItems();
     }
 
-    private void Reset()
+    private void ResetItems()
     {
         coins.Value = 0;
     }

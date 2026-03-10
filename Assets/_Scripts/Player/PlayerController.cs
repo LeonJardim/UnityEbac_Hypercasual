@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Leon.Core.InputActions;
 using Leon.Core.Singleton;
 using UnityEngine;
@@ -5,9 +6,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : Singleton<PlayerController>
 {
+    [Header("References")]
+    [SerializeField] private SphereCollider _coinCollector;
+
+    [Header("States")]
     public bool canRun = false;
     public bool invincible = false;
-    public float forwardSpeed = 2.0f;
+
+    [Header("Speed")]
+    public float forwardSpeed = 8.0f;
     public float sideSpeed = 0.1f;
 
     private PlayerInputActions _playerControls;
@@ -16,7 +23,9 @@ public class PlayerController : Singleton<PlayerController>
     private InputAction _screenPos;
 
     private Vector2 _mousePos;
+    private Vector3 _startPos;
     private float _currentSpeed;
+    private float _regularCoinCollectorRadius;
 
     #region INPUTS / AWAKE
     protected override void Awake()
@@ -41,7 +50,9 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Start()
     {
-        _currentSpeed = forwardSpeed;
+        _startPos = transform.position;
+        _regularCoinCollectorRadius = _coinCollector.radius;
+        ResetSpeed();
     }
     void Update()
     {
@@ -72,13 +83,36 @@ public class PlayerController : Singleton<PlayerController>
 
 
     #region POWER UPS
-    public void SpeedPowerUpOn(float amount)
+    public void SpeedPowerUpON(float amount)
     {
         _currentSpeed += amount;
     }
-    public void SpeedPowerUpOff()
+    public void SpeedPowerUpOFF()
+    {
+        ResetSpeed();
+    }
+    public void ResetSpeed()
     {
         _currentSpeed = forwardSpeed;
+    }
+
+    public void FlyON(float height, float duration, float animationDuration, Ease ease)
+    {
+        transform.DOMoveY(_startPos.y + height, animationDuration).SetEase(ease);
+        DOVirtual.DelayedCall(duration, () => ResetHeight(animationDuration));
+    }
+    public void ResetHeight(float animationDuration)
+    {
+        transform.DOMoveY(_startPos.y, animationDuration / 2.0f).SetEase(Ease.InSine);
+    }
+
+    public void ChangeCoinCollectorRadius(float radius)
+    {
+        _coinCollector.radius = radius;
+    }
+    public void ResetCoinCollectorRadius()
+    {
+        _coinCollector.radius = _regularCoinCollectorRadius;
     }
 
     #endregion

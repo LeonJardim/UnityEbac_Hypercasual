@@ -6,24 +6,25 @@ public class Collectable : MonoBehaviour
     public ParticleSystem particles;
     public GameObject mesh;
     public AudioSource audioSource;
+    public bool isDestroyable = true;
     public float timeToDestroy;
-    private bool _collected = false;
+    public bool collected = false;
 
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.CompareTag(tagToCompare))
         {
-            if (_collected) return;
+            if (collected) return;
             Collect();
         }
     }
 
     protected virtual void Collect()
     {
-        if (_collected) return;
-        _collected = true;
+        if (collected) return;
+        collected = true;
         OnCollect();
-        Invoke("DestroyMe", timeToDestroy);
+        if (isDestroyable) Invoke(nameof(DestroyMe), timeToDestroy);
     }
     protected virtual void OnCollect()
     {

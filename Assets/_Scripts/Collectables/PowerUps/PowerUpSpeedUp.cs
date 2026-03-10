@@ -10,12 +10,12 @@ public class PowerUpSpeedUp : PowerUp
     {
         base.StartPowerUp();
         GameManager.Instance.powerUpText.text = powerUpName;
-        PlayerController.Instance.SpeedPowerUpOn(speedAmount);
+        PlayerController.Instance.SpeedPowerUpON(speedAmount);
     }
 
     protected override void EndPowerUp()
     {
         base.EndPowerUp();
-        PlayerController.Instance.SpeedPowerUpOff();
+        PlayerController.Instance.SpeedPowerUpOFF();
     }
 }
