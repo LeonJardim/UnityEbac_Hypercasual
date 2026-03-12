@@ -7,6 +7,8 @@ public class LerpMovement : MonoBehaviour
 
     private void Update()
     {
+        if (target == null) return;
+        if (!PlayerController.Instance.canRun) return;
         transform.position = Vector3.Lerp(transform.position, target.position, lerpSpeed * Time.deltaTime);
     }
 }

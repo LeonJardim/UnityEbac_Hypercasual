@@ -6,9 +6,11 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject _endGameScreen;
     public TMP_Text powerUpText;
-    public void EndGame()
+    public void EndGame(AnimatorManager.AnimationType type = AnimatorManager.AnimationType.DEAD)
     {
         _endGameScreen.SetActive(true);
-        PlayerController.Instance.canRun = false;
+        PlayerController.Instance.CanRun(false);
+        PlayerController.Instance.animatorManager.Play(type);
+
     }
 }

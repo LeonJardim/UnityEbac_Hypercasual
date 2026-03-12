@@ -1,6 +1,8 @@
 using DG.Tweening;
 using Leon.Core.InputActions;
 using Leon.Core.Singleton;
+using NUnit.Framework;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,16 +10,18 @@ public class PlayerController : Singleton<PlayerController>
 {
     [Header("References")]
     [SerializeField] private SphereCollider _coinCollector;
+    public AnimatorManager animatorManager;
 
     [Header("States")]
     public bool canRun = false;
     public bool invincible = false;
 
     [Header("Speed")]
-    public float forwardSpeed = 8.0f;
+    public float forwardSpeed = 7.0f;
     public float sideSpeed = 0.1f;
 
     private PlayerInputActions _playerControls;
+    private InputAction[] _playerInputs;
     private InputAction _tapOn;
     private InputAction _tapOff;
     private InputAction _screenPos;
@@ -25,6 +29,7 @@ public class PlayerController : Singleton<PlayerController>
     private Vector2 _mousePos;
     private Vector3 _startPos;
     private float _currentSpeed;
+    private float _baseAnimationSpeed = 7.0f;
     private float _regularCoinCollectorRadius;
 
     #region INPUTS / AWAKE
@@ -32,19 +37,30 @@ public class PlayerController : Singleton<PlayerController>
     {
         base.Awake();
         _playerControls = new PlayerInputActions();
+
+        _tapOn = _playerControls.Player.tapOn;
+        _tapOff = _playerControls.Player.tapOff;
+        _screenPos = _playerControls.Player.screenPosition;
+
+        _playerInputs = new InputAction[] { 
+            _tapOn,
+            _tapOff,
+            _screenPos };
     }
 
     private void OnEnable()
     {
-        _tapOn = _playerControls.Player.tapOn; _tapOn.Enable();
-        _tapOff = _playerControls.Player.tapOff; _tapOff.Enable();
-        _screenPos = _playerControls.Player.screenPosition; _screenPos.Enable();
+        foreach (InputAction input in _playerInputs)
+        {
+            input.Enable();
+        }
     }
     private void OnDisable()
     {
-        _tapOn.Disable();
-        _tapOff.Disable();
-        _screenPos.Disable();
+        foreach (InputAction input in _playerInputs)
+        {
+            input.Disable();
+        }
     }
     #endregion
 
@@ -79,6 +95,10 @@ public class PlayerController : Singleton<PlayerController>
     public void CanRun(bool b)
     {
         canRun = b;
+        if (canRun)
+        {
+            animatorManager.Play(AnimatorManager.AnimationType.RUN, _currentSpeed / _baseAnimationSpeed);
+        }
     }
 
 

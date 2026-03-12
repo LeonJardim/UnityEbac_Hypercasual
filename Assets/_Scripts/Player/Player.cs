@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
         }
         else if (collision.transform.CompareTag("Finish"))
         {
-            GameManager.Instance.EndGame();
+            GameManager.Instance.EndGame(AnimatorManager.AnimationType.IDLE);
         }
 
     }
