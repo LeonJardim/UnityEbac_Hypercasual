@@ -4,6 +4,7 @@ public class Player : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
+        if (!PlayerController.Instance.canRun) return;
         if (collision.transform.CompareTag("Enemy"))
         {
             if (PlayerController.Instance.invincible) return;
@@ -11,8 +12,13 @@ public class Player : MonoBehaviour
         }
         else if (collision.transform.CompareTag("Finish"))
         {
-            GameManager.Instance.EndGame(AnimatorManager.AnimationType.IDLE);
+            PlayerController.Instance.CanRun(false);
+            GameManager.Instance.EndGame(true, AnimatorManager.AnimationType.IDLE);
         }
+    }
 
+    public void ResetPlayerPosition()
+    {
+        transform.position = Vector3.zero;
     }
 }

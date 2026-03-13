@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662b5f5d9395c63429e22fbc94730199, type: 3}
+  m_Name: SO_MapColors_Beach
+  m_EditorClassIdentifier: Assembly-CSharp::SO_MapColors
+  skyColor: {r: 0.25880376, g: 0.71522707, b: 0.8415094, a: 0}
+  objectsColor: {r: 0.53748417, g: 0.6981132, b: 0.067176916, a: 0}
+  floorColor: {r: 0.7584905, g: 0.7369905, b: 0.2962406, a: 0}

@@ -101,6 +101,10 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
+    public void ResetPlayerPosition()
+    {
+        transform.position = _startPos;
+    }
 
     #region POWER UPS
     public void SpeedPowerUpON(float amount)
