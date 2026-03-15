@@ -14,7 +14,6 @@ public class LevelManager : Singleton<LevelManager>
     {
         base.Awake();
         SpawnNextLevel();
-        ColorManager.Instance.ChangeMapColors();
 
         transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
@@ -32,7 +31,15 @@ public class LevelManager : Singleton<LevelManager>
                 _index = 0;
             }
         }
-        
+
+        _currentLevel = Instantiate(levels[_index], container);
+        _currentLevel.transform.localPosition = Vector3.zero;
+    }
+
+    public void RestartLevel()
+    {
+        if (_currentLevel) Destroy(_currentLevel);
+
         _currentLevel = Instantiate(levels[_index], container);
         _currentLevel.transform.localPosition = Vector3.zero;
     }

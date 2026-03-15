@@ -6,6 +6,12 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject _endGameScreen;
     public TMP_Text powerUpText;
+
+    public void StartGame()
+    {
+        CoinsAnimationManager.Instance.StartAnimations();
+    }
+
     public void EndGame(bool gameWon = false, AnimatorManager.AnimationType type = AnimatorManager.AnimationType.DEAD)
     {
         _endGameScreen.SetActive(true);
@@ -16,6 +22,11 @@ public class GameManager : Singleton<GameManager>
         {
             PlayerController.Instance.ResetPlayerPosition();
             LevelManager.Instance.SpawnNextLevel();
+            ColorManager.Instance.ChangeMapColors();
+        }
+        else
+        {
+            LevelManager.Instance.RestartLevel();
         }
     }
 }

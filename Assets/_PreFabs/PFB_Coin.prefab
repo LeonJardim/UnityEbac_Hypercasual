@@ -74,8 +74,8 @@ MonoBehaviour:
   isDestroyable: 0
   timeToDestroy: 0
   collected: 0
-  _lerp: 5
-  _minDistance: 1.5
+  _lerp: 10
+  _minDistance: 2
 --- !u!1 &8931694009693802489
 GameObject:
   m_ObjectHideFlags: 0

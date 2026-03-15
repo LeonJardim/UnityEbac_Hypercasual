@@ -9,7 +9,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : Singleton<PlayerController>
 {
     [Header("References")]
+    [SerializeField] private GameObject _body;
     [SerializeField] private SphereCollider _coinCollector;
+    [SerializeField] private BounceFX _bounceFX;
     public AnimatorManager animatorManager;
 
     [Header("States")]
@@ -104,6 +106,12 @@ public class PlayerController : Singleton<PlayerController>
     public void ResetPlayerPosition()
     {
         transform.position = _startPos;
+        _body.transform.position = _startPos;
+    }
+
+    public void Bounce()
+    {
+        if (_bounceFX) _bounceFX.Bounce();
     }
 
     #region POWER UPS

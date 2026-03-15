@@ -6,10 +6,17 @@ public class CollectableCoin : Collectable
     [SerializeField] private float _lerp = 5.0f;
     [SerializeField] private float _minDistance = 1.0f;
 
+    private void Start()
+    {
+        CoinsAnimationManager.Instance.RegisterCoin(this);
+    }
+
     protected override void OnCollect()
     {
         base.OnCollect();
+        PlayerController.Instance.Bounce();
         ItemManager.Instance.AddCoins();
+        CoinsAnimationManager.Instance.items.Remove(this);
     }
 
     private void Update()
@@ -24,5 +31,10 @@ public class CollectableCoin : Collectable
                 Destroy(gameObject);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        CoinsAnimationManager.Instance.items.Remove(this);
     }
 }

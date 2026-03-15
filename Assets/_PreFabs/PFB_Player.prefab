@@ -130,7 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b815a66cd31055f4cbd8bbe4d4e300ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TouchController
+  _body: {fileID: 7232467399148471369}
   _coinCollector: {fileID: 7267590023386239134}
+  _bounceFX: {fileID: 4216244660157328431}
   animatorManager: {fileID: 853733852558408604}
   canRun: 0
   invincible: 0
@@ -149,6 +151,7 @@ GameObject:
   - component: {fileID: 2577391716589151222}
   - component: {fileID: 7819638699847236278}
   - component: {fileID: 2803727162255116999}
+  - component: {fileID: 4216244660157328431}
   m_Layer: 0
   m_Name: Player_Body
   m_TagString: Player
@@ -166,8 +169,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8716955909714358669}
   - {fileID: 542957501363624046}
@@ -234,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LerpMovement
   target: {fileID: 2827795726201444668}
-  lerpSpeed: 5
+  lerpSpeed: 10
 --- !u!114 &2803727162255116999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +250,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364565223cc86c441a6837f2f85c3cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  _durationToShow: 1
+--- !u!114 &4216244660157328431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232467399148471369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa0c1e2718497a41ad7f0b296515f3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BounceFX
+  _amount: 1.2
+  _duration: 0.2
 --- !u!1001 &4573010731133535976
 PrefabInstance:
   m_ObjectHideFlags: 0
