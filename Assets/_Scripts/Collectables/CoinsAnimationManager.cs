@@ -8,6 +8,7 @@ using UnityEngine;
 public class CoinsAnimationManager : Singleton<CoinsAnimationManager>
 {
     public List<CollectableCoin> items;
+    [SerializeField] private Transform _floor;
 
     [Header("Animation")]
     public float scaleDuration = 0.2f;
@@ -26,6 +27,10 @@ public class CoinsAnimationManager : Singleton<CoinsAnimationManager>
         {
             items.Add(c);
             c.transform.localScale = Vector3.zero;
+            if (c.particles != null)
+            {
+                c.particles.collision.SetPlane(0, _floor);
+            }
         }
     }
 

@@ -28,7 +28,11 @@ public class Collectable : MonoBehaviour
     }
     protected virtual void OnCollect()
     {
-        if (particles != null) particles.Play();
+        if (particles != null)
+        {
+            particles.transform.SetParent(null);
+            particles.Play();
+        }
         if (mesh != null) mesh.SetActive(false);
         if (audioSource != null) audioSource.Play();
     }

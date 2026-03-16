@@ -18,9 +18,10 @@ public class PlayerController : Singleton<PlayerController>
     public bool canRun = false;
     public bool invincible = false;
 
-    [Header("Speed")]
+    [Header("Movement")]
     public float forwardSpeed = 7.0f;
     public float sideSpeed = 0.1f;
+    public float limit = 4.0f;
 
     private PlayerInputActions _playerControls;
     private InputAction[] _playerInputs;
@@ -87,6 +88,10 @@ public class PlayerController : Singleton<PlayerController>
     private void SideMovement(float speed)
     {
         transform.Translate(sideSpeed * speed * Time.deltaTime * transform.right);
+
+        Vector3 _clampedPos = transform.position;
+        _clampedPos.x = Mathf.Clamp(_clampedPos.x, -limit, limit);
+        transform.position = _clampedPos;
     }
 
     private void ForwardMovement()
